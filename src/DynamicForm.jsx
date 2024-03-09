@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
-const labelStyle = {display: 'block', marginBottom: '20px'};
-const inputStyle = {marginLeft: '10px'};
-const formStyle = {padding: '20px', border: '1px solid #ccc', borderRadius: '5px'};
-const buttonStyle = {marginTop: '20px'};
+const useStyle = () => useMemo(() => ({
+    labelStyle: {display: 'block', marginBottom: '20px'},
+    inputStyle: {marginLeft: '10px'},
+    formStyle: {padding: '20px', border: '1px solid #ccc', borderRadius: '5px'},
+    buttonStyle: {marginTop: '20px'}
+}), []);
 
 const FormElement = ({ type, label, name, options }) => {
+    const { labelStyle, inputStyle } = useStyle();
     switch (type) {
         case 'text':
         case 'email':
@@ -68,6 +71,7 @@ const FormElement = ({ type, label, name, options }) => {
 };
 
 const DynamicForm = ({ formData }) => {
+    const { formStyle, buttonStyle } = useStyle();
     return (
         <form style={formStyle} onSubmit={(e) => e.preventDefault()}>
             {formData.map((formElement, index) => (
